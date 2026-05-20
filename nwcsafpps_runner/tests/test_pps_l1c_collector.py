@@ -275,22 +275,6 @@ pps_lvl1c_dir: my_test_dir
 """
 
 
-@contextmanager
-def mocked():
-    """Mock the pytroll module."""
-    with patch.dict(sys.modules,
-                    {"posttroll": MagicMock(),
-                     "posttroll.subscriber": MagicMock(),
-                     "posttroll.publisher": MagicMock()}
-                    ) as _module:
-        posttroll = _module["posttroll"]
-        posttroll.subscriber = _module["posttroll.subscriber"]
-        posttroll.publisher = _module["posttroll.publisher"]
-        posttroll.subscriber.Subscribe = MagicMock()
-        posttroll.publisher.create_publisher_from_dict_config = MagicMock()
-        yield posttroll
-
-
 @pytest.fixture
 def fake_file(tmp_path):
     """Create directory with test files."""
@@ -306,14 +290,12 @@ class TestPpsCollector:
 
     def test_pps_collector_runner(self, fake_file):
         """Test the pps_collector_runner."""
-        # from posttroll.testing import patched_subscriber_recv, patched_publisher
-        with mocked() as posttroll:
-            myconfig_filename = fake_file
-            # input_msg = TEST_INPUT_MSG  # Message.decode(rawstr=TEST_INPUT_MSG)
-            # messages = [input_msg]
-            with unittest.mock.patch('nwcsafpps_runner.pps_collector_lib.LOOP', False):
+        with patch("posttroll.publisher.create_publisher_from_dict_config"):
+            with patch("posttroll.subscriber.Subscribe"):
+                myconfig_filename = fake_file
                 from nwcsafpps_runner.pps_collector_lib import pps_collector_runner
-                pps_collector_runner(myconfig_filename)
+                with unittest.mock.patch('nwcsafpps_runner.pps_collector_lib.LOOP', False):
+                    pps_collector_runner(myconfig_filename)
 
     def test_prepare_pps_collector_message(self, fake_file):
         """Test that meesage is prepared correctly."""
