@@ -73,7 +73,7 @@ def flatten_collection(msg_data):
         msg_data["dataset"] = []
         for ind in range(0, len(collection)):
             for item in collection[ind]["dataset"]:
-                if type(item) == dict:
+                if isinstance(item, dict):
                     msg_data["dataset"].append(item)
 
 

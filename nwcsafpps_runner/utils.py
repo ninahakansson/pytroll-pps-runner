@@ -25,16 +25,9 @@
 import logging
 import os
 import shlex
-import socket
 import threading
-from glob import glob
 from subprocess import PIPE, Popen
-from urllib.parse import urlparse
 
-from posttroll.address_receiver import get_local_ips
-
-from posttroll.message import Message  # @UnresolvedImport
-from trollsift.parser import parse  # @UnresolvedImport
 
 LOG = logging.getLogger(__name__)
 
