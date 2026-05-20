@@ -1,0 +1,17 @@
+script:
+  command: "{{ deploy_helper.new_release_path }}/bin/ppsRunAllWrapper.py"
+  workers: 4
+publisher_config:
+  expected_files: "/san1/polar_out/direct_readout/lvl2/do_not_publish_S_NWC_*xml"
+  publisher_settings:
+    name: pps2021_runner
+  static_metadata:
+    data_processing_level: 2
+    type: XML
+    format: PPS-XML
+  topic: /PPS-XML/2/
+subscriber_config:
+  topics: [/segment/NWCSAFPPS/1C]
+  nameserver: localhost
+  addr_listener: true
+
