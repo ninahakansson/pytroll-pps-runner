@@ -6,7 +6,6 @@ dependencies:
   - dask
   - distributed
   - toolz
-  - Cython
   - sphinx
   - pyyaml
   - coveralls
