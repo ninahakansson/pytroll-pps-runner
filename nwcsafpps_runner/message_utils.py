@@ -55,7 +55,7 @@ def add_lvl1c_to_msg(msg_data, options):
     """Add PPS lvl1c file to a collection of PPS products."""
     level1c_path = os.environ.get('SM_IMAGER_DIR', options.get('pps_lvl1c_dir', './'))
     sensor = options.get('sensor', get_pps_sensor_from_msg(msg_data["sensor"]))
-    num_files = len(msg_data['dataset'])
+    # num_files = len(msg_data['dataset'])
     to_add = {}
     for item in msg_data['dataset']:
         lvl1c_file = create_pps_file_from_lvl1c(item["uri"], level1c_path,

@@ -24,12 +24,9 @@
 """Test the nwp_prepare runner code."""
 import unittest
 import pytest
-#
 # from posttroll.testing import patched_subscriber_recv
 # from nwcsafpps_runner.pps_collector_lib import pps_collector_runner
-from unittest.mock import MagicMock, patch
-from contextlib import contextmanager
-import sys
+from unittest.mock import patch
 
 TEST_INPUT_MSG_DATASET = (
     """pytroll://collection/SDR+CF/1+2/CloudProducts/ collection auser@some.server.se """ +
@@ -320,4 +317,3 @@ class TestPpsCollector:
             if "S_NWC_viirs" in item["uid"]:
                 n_level1c_file_included += 1
         assert n_level1c_file_included == 1
-

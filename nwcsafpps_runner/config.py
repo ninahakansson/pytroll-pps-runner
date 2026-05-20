@@ -23,8 +23,6 @@
 """Reading configuration settings for NWCSAF/PPS runner(s)."""
 
 import os
-import socket
-
 import yaml
 
 
@@ -64,4 +62,3 @@ def modify_config_vars(options):
             if len(item) == 0:
                 subscribe_topics.remove(item)
         options['subscribe_topics'] = subscribe_topics
-
