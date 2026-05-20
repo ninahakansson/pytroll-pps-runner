@@ -96,38 +96,6 @@ def prepare_nwp_message(result_file, publish_topic):
     return to_send
 
 
-def prepare_l1c_message(result_file, mda, **kwargs):
-    """Prepare the output message for the level-1c file creation."""
-    if not result_file:
-        return
-
-    # Now publish:
-    to_send = mda.copy()
-    # Delete the input level-1 dataset from the message:
-    try:
-        del to_send['dataset']
-    except KeyError:
-        LOG.warning("Couldn't remove dataset from message")
-    try:
-        del to_send['filename']
-    except KeyError:
-        LOG.warning("Couldn't remove filename from message")
-
-    if ('orbit' in kwargs) and ('orbit_number' in to_send.keys()):
-        to_send["orig_orbit_number"] = to_send["orbit_number"]
-        to_send["orbit_number"] = kwargs['orbit']
-
-    to_send["uri"] = result_file
-    filename = os.path.basename(result_file)
-    to_send["uid"] = filename
-
-    to_send['format'] = 'PPS-L1C'
-    to_send['type'] = 'NETCDF'
-    to_send['data_processing_level'] = '1c'
-
-    return to_send
-
-
 def publish_l1c(publisher, publish_msg, publish_topic, msg_type="file"):
     """Publish the messages that l1c files are ready."""
     LOG.debug('Publish topic = %s', publish_topic)
