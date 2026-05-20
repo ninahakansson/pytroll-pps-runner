@@ -24,7 +24,5 @@ dependencies:
   - appdirs
   - pip
   - pip:
-    - git+https://github.com/foua-pps/level1c4pps
     - trollsift
     - posttroll
-    - pygac
