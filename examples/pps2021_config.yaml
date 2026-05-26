@@ -1,8 +1,8 @@
 script:
-  command: "{{ deploy_helper.new_release_path }}/bin/ppsRunAllWrapper.py"
+  command: "/my/path/to/ppsRunAllWrapper.py"
   workers: 4
 publisher_config:
-  expected_files: "/san1/polar_out/direct_readout/lvl2/do_not_publish_S_NWC_*xml"
+  expected_files: "/my_out_directory/S_NWC_*nc"
   publisher_settings:
     name: pps2021_runner
   static_metadata:
